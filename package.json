@@ -1,0 +1,13 @@
+{
+  "name": "playwright-youtube-automation",
+  "version": "1.0.0",
+  "description": "Playwright automation for YouTube using Page Object Model",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^22.13.9",
+    "typescript": "^5.3.0"
+  }
+}
