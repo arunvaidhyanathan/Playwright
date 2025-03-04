@@ -93,6 +93,7 @@ Create a separate file for each page—for example, a LoginPage class for the lo
 	•	Actions: Build methods that perform interactions (e.g., filling a form and clicking a button).
 Example in TypeScript:
 
+```bash
 // LoginPage.ts
 import { Page, Locator } from '@playwright/test';
 
@@ -121,12 +122,13 @@ export class LoginPage {
    await this.loginButton.click();
  }
 }
+```
 
 2. Use the Page Object in Your Tests
 In your test files, import the page class, instantiate it with the Playwright Page instance, and call its methods:
 Example using Playwright Test:
 
-
+```bash
 // login.spec.ts
 import { test } from '@playwright/test';
 import { LoginPage } from './LoginPage';
@@ -138,19 +140,7 @@ test('User can successfully log in', async ({ page }) => {
 
  // Add assertions to verify a successful login
 });
-
-
-// login.spec.ts
-import { test } from '@playwright/test';
-import { LoginPage } from './LoginPage';
-
-test('User can successfully log in', async ({ page }) => {
- const loginPage = new LoginPage(page);
- await loginPage.navigate();
- await loginPage.login('user@example.com', 'securePassword');
-
- // Add assertions to verify a successful login
-});
+```
 
 3. Benefits of This Approach
 	•	Maintainability: If element locators change, you update them only in the corresponding Page Object.
@@ -169,6 +159,7 @@ Instead of targeting classes or IDs that change frequently, use custom attribute
 	•	Parameterized Locators:
 For elements that vary based on text or other dynamic content, create methods in your page object to build selectors at runtime. For example
 
+```bash
 // In your Page Object
 getElementByText(text: string) {
  return this.page.locator(`//*[contains(text(),"${text}")]`);
@@ -191,10 +182,10 @@ async dismissNotification(): Promise<void> {
    await closeButton.click();
  }
 }
-
+```
 	•	Handling Transitions and Spinners:
 Often, dynamic elements include loading indicators. Encapsulate the wait for these spinners to vanish before proceeding:
-
+```bash
 // Example method for waiting until a spinner disappears
 async waitForLoaderToDisappear(): Promise<void> {
  const loader = this.page.locator('.loading-spinner');
@@ -217,7 +208,7 @@ async handleOptionalBanner(): Promise<void> {
    await banner.locator('.close-button').click();
  }
 }
-
+```
 4. Centralize and Reuse the Logic
 	•	Encapsulation:
 Place all dynamic handling logic in your page objects rather than scattering waits and conditional checks in individual test cases. This approach makes your tests more maintainable and the behavior easier to update if the UI changes.
@@ -236,8 +227,7 @@ Dynamic elements might load asynchronously. Rather than using arbitrary delays, 
 Sometimes you may want to modify a dynamic element’s properties or styles directly using JavaScript, which you can do with the `page.evaluate()` method. This method executes code within the browser context, giving you access to the full DOM API.
 4. Example Implementation
 Below is an example that demonstrates how to handle and manipulate a dynamic element using JavaScript in Playwright:
-
-
+```bash
 const { chromium } = require('playwright');
 
 (async () => {
@@ -271,7 +261,7 @@ const { chromium } = require('playwright');
  // Close the browser
  await browser.close();
 })();
-
+```
 Explanation
 	•	Waiting for the Element:
 `page.waitForSelector('data-testid="dynamic-element"')` ensures that the test does not proceed until the dynamic element is present, which is crucial for reliability.
@@ -369,9 +359,6 @@ npx playwright install
 This will ensure all required browsers are installed for your tests to run properly.
 
 
-## Trae AI
-Used 1 Reference
-
 # Running Playwright Tests
 To run the Playwright tests in your project, you'll need to use the Playwright CLI commands. Here's how you can run your tests:
 
@@ -431,17 +418,8 @@ npx playwright install
  ```
 
 This will ensure all required browsers are installed for your tests to run properly.
-
-## user83571336868
-Copy
-
-Delete
-
-Terminal deleted how to fix this error
-
-## Trae AI
-2 context(s) used
-
+## Troubleshooting
+If you encounter any issues with the test execution, make sure you have the latest version of Playwright installed:
 The error in your playwright.config.ts file is a syntax error due to an extra parenthesis and missing semicolon. Let's fix the configuration file:
 
 ```typescript
@@ -468,18 +446,9 @@ After making this change, try running the tests again:
 ```bash
 npx playwright test
  ```
-
-## user83571336868
-Copy
-
-Delete
-
 Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`. how to resolve this problem
 
-## Trae AI
-Used 1 Reference
-
-playwright.config.ts 6-6
+playwright.config.ts
 
 This error occurs because TypeScript doesn't recognize the process object, which is a Node.js global. The error message is suggesting the correct solution - you need to install the type definitions for Node.js.
 
@@ -487,7 +456,7 @@ To resolve this issue:
 
 1. Install the Node.js type definitions by running this command in your terminal:
 ```bash
-npm install --save-dev @types/node
+npm install --save-dev @types/node 
  ```
 
 2. After installing the type definitions, the error should be resolved as TypeScript will now recognize the process object and its properties.
